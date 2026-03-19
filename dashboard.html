@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — PharaohicSoul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4A853; --gold-dim: #A8863F; --copper: #C17F4E;
+            --dark-1: #0D0B09; --dark-2: #161311; --dark-3: #1E1A17; --dark-4: #2A2520;
+            --cream: #F2E8D5; --text: #E5DDD0; --text-dim: #9B9183;
+            --accent: #E8C06A; --success: #5DB87C; --danger: #D45C5C;
+            --tiktok: #FF004F; --radius: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-1); color: var(--text); min-height: 100vh; }
+
+        /* SIDEBAR */
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 240px; background: var(--dark-2); border-right: 1px solid rgba(212,168,83,0.06);
+            padding: 1.5rem 1rem; display: flex; flex-direction: column; position: fixed; height: 100vh;
+        }
+        .sidebar-brand { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; padding: 0 0.5rem; text-decoration: none; }
+        .sidebar-brand img { width: 28px; height: 28px; border-radius: 50%; }
+        .sidebar-brand span { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--gold); }
+        .sidebar-nav { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
+        .sidebar-nav a {
+            display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0.8rem;
+            border-radius: 6px; color: var(--text-dim); text-decoration: none;
+            font-size: 0.83rem; font-weight: 500; transition: all 0.2s;
+        }
+        .sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(212,168,83,0.08); color: var(--cream); }
+        .sidebar-nav a.active { border-left: 2px solid var(--gold); }
+        .sidebar-nav .icon { font-size: 1rem; width: 20px; text-align: center; }
+        .sidebar-footer { padding-top: 1rem; border-top: 1px solid rgba(212,168,83,0.06); }
+        .sidebar-footer a { font-size: 0.75rem; color: var(--text-dim); text-decoration: none; display: block; padding: 0.3rem 0.5rem; }
+
+        /* MAIN */
+        .main { flex: 1; margin-left: 240px; padding: 2rem 2.5rem; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .page-header h1 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--cream); }
+        .btn {
+            padding: 0.55rem 1.2rem; border-radius: var(--radius); font-size: 0.82rem;
+            font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: all 0.2s;
+        }
+        .btn-gold { background: var(--gold); color: var(--dark-1); }
+        .btn-gold:hover { background: var(--accent); }
+        .btn-outline { background: transparent; border: 1px solid var(--dark-4); color: var(--text-dim); }
+        .btn-tiktok { background: var(--tiktok); color: #fff; display: inline-flex; align-items: center; gap: 0.5rem; }
+
+        /* CONNECT SECTION */
+        .connect-section {
+            background: var(--dark-2); border: 1px solid rgba(212,168,83,0.08);
+            border-radius: 12px; padding: 2.5rem; text-align: center; margin-bottom: 2rem;
+        }
+        .connect-section h2 { font-family: 'DM Serif Display', serif; color: var(--cream); font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .connect-section p { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.6; }
+        .connect-btn {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            background: #000; color: #fff; padding: 0.8rem 2rem;
+            border-radius: var(--radius); font-weight: 600; font-size: 0.9rem;
+            border: 1px solid #333; cursor: pointer; font-family: inherit; transition: all 0.2s;
+            text-decoration: none;
+        }
+        .connect-btn:hover { border-color: var(--tiktok); }
+        .connect-btn svg { width: 20px; height: 20px; }
+        .connected-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: rgba(93,184,124,0.1); color: var(--success); padding: 0.4rem 1rem;
+            border-radius: 50px; font-size: 0.78rem; font-weight: 600;
+        }
+
+        /* CARDS GRID */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .dash-card {
+            background: var(--dark-2); border: 1px solid rgba(212,168,83,0.06);
+            border-radius: 12px; padding: 1.5rem;
+        }
+        .dash-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .dash-card-header h3 { font-size: 0.82rem; color: var(--text-dim); font-weight: 500; }
+        .dash-card .big-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--cream); }
+        .dash-card .change { font-size: 0.75rem; color: var(--success); font-weight: 600; }
+        .dash-card .change.down { color: var(--danger); }
+
+        /* CONTENT TABLE */
+        .content-section { background: var(--dark-2); border: 1px solid rgba(212,168,83,0.06); border-radius: 12px; overflow: hidden; }
+        .content-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(212,168,83,0.06); }
+        .content-header h3 { font-size: 0.95rem; color: var(--cream); font-weight: 600; }
+        table { width: 100%; border-collapse: collapse; }
+        th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 600; padding: 0.8rem 1.5rem; text-align: left; }
+        td { padding: 1rem 1.5rem; border-top: 1px solid rgba(212,168,83,0.04); font-size: 0.85rem; }
+        .status-badge {
+            display: inline-flex; padding: 0.2rem 0.7rem; border-radius: 50px;
+            font-size: 0.7rem; font-weight: 600;
+        }
+        .status-published { background: rgba(93,184,124,0.1); color: var(--success); }
+        .status-draft { background: rgba(212,168,83,0.1); color: var(--gold); }
+        .status-scheduled { background: rgba(100,149,237,0.1); color: #6495ed; }
+        .product-cell { display: flex; align-items: center; gap: 0.8rem; }
+        .product-thumb { width: 36px; height: 36px; border-radius: 6px; background: var(--dark-3); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+
+        /* PERMISSION FLOW */
+        .permission-list { text-align: left; max-width: 400px; margin: 1.5rem auto; }
+        .perm-item {
+            display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(212,168,83,0.04);
+            font-size: 0.85rem; color: var(--text-dim);
+        }
+        .perm-check { color: var(--success); font-weight: bold; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout">
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-brand">
+            <img src="logo.jpg" alt="PS">
+            <span>PharaohicSoul</span>
+        </a>
+        <nav class="sidebar-nav">
+            <a href="#" class="active"><span class="icon">&#9632;</span> Dashboard</a>
+            <a href="#"><span class="icon">&#9654;</span> Create Video</a>
+            <a href="#"><span class="icon">&#128197;</span> Content Calendar</a>
+            <a href="#"><span class="icon">&#128202;</span> Analytics</a>
+            <a href="#"><span class="icon">&#127978;</span> Products</a>
+            <a href="#"><span class="icon">&#9881;</span> Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html">Back to Home</a>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <button class="btn btn-gold" onclick="document.getElementById('create-modal').style.display='flex'">+ Create Video</button>
+        </div>
+
+        <!-- TikTok Connect -->
+        <div class="connect-section" id="connect-section">
+            <h2>Connect Your TikTok Account</h2>
+            <p>Link your TikTok account to start publishing product videos directly from PharaohicSoul. We use TikTok's official Login Kit for secure authentication.</p>
+            <div class="permission-list">
+                <div class="perm-item"><span class="perm-check">&#10003;</span> Read your basic profile info (user.info.basic)</div>
+                <div class="perm-item"><span class="perm-check">&#10003;</span> Upload videos as drafts (video.upload)</div>
+                <div class="perm-item"><span class="perm-check">&#10003;</span> You can revoke access at any time</div>
+            </div>
+            <a class="connect-btn" id="tiktok-connect-btn" href="#">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.76 1.52V6.94a4.85 4.85 0 01-1-.25z"/></svg>
+                Continue with TikTok
+            </a>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="dashboard-grid">
+            <div class="dash-card">
+                <div class="dash-card-header"><h3>Total Videos</h3></div>
+                <div class="big-num">12</div>
+                <span class="change">+3 this week</span>
+            </div>
+            <div class="dash-card">
+                <div class="dash-card-header"><h3>Total Views</h3></div>
+                <div class="big-num">8.4K</div>
+                <span class="change">+24% vs last week</span>
+            </div>
+            <div class="dash-card">
+                <div class="dash-card-header"><h3>Shop Clicks</h3></div>
+                <div class="big-num">147</div>
+                <span class="change">+18% vs last week</span>
+            </div>
+            <div class="dash-card">
+                <div class="dash-card-header"><h3>Sales from TikTok</h3></div>
+                <div class="big-num">&euro;340</div>
+                <span class="change">+5 orders</span>
+            </div>
+        </div>
+
+        <!-- Recent Content -->
+        <div class="content-section">
+            <div class="content-header">
+                <h3>Recent Content</h3>
+                <button class="btn btn-outline">View All</button>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>Product</th><th>Platform</th><th>Status</th><th>Views</th><th>Date</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="product-cell"><div class="product-thumb">&#9749;</div> Copper Coffee Set - Premium</div></td>
+                        <td>TikTok</td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>2,340</td>
+                        <td style="color:var(--text-dim)">Mar 18, 2026</td>
+                    </tr>
+                    <tr>
+                        <td><div class="product-cell"><div class="product-thumb">&#127987;</div> Egyptian Cat Statue</div></td>
+                        <td>TikTok</td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>1,890</td>
+                        <td style="color:var(--text-dim)">Mar 16, 2026</td>
+                    </tr>
+                    <tr>
+                        <td><div class="product-cell"><div class="product-thumb">&#128141;</div> Pharaonic Necklace</div></td>
+                        <td>TikTok</td>
+                        <td><span class="status-badge status-draft">Draft</span></td>
+                        <td>—</td>
+                        <td style="color:var(--text-dim)">Mar 15, 2026</td>
+                    </tr>
+                    <tr>
+                        <td><div class="product-cell"><div class="product-thumb">&#127978;</div> Ankh Hoodie - Black</div></td>
+                        <td>TikTok</td>
+                        <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                        <td>—</td>
+                        <td style="color:var(--text-dim)">Mar 20, 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<!-- Create Video Modal -->
+<div id="create-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:var(--dark-2); border:1px solid rgba(212,168,83,0.1); border-radius:16px; padding:2.5rem; max-width:480px; width:90%;">
+        <h2 style="font-family:'DM Serif Display',serif; color:var(--cream); margin-bottom:1rem;">Create New Video</h2>
+        <div style="margin-bottom:1rem;">
+            <label style="font-size:0.8rem; color:var(--text-dim); display:block; margin-bottom:0.4rem;">Product Name</label>
+            <input style="width:100%; padding:0.6rem; background:var(--dark-3); border:1px solid var(--dark-4); border-radius:6px; color:var(--text); font-family:inherit;" placeholder="e.g. Copper Coffee Set">
+        </div>
+        <div style="margin-bottom:1rem;">
+            <label style="font-size:0.8rem; color:var(--text-dim); display:block; margin-bottom:0.4rem;">Caption</label>
+            <textarea style="width:100%; padding:0.6rem; background:var(--dark-3); border:1px solid var(--dark-4); border-radius:6px; color:var(--text); font-family:inherit; height:80px;" placeholder="Write a caption or let AI generate one..."></textarea>
+        </div>
+        <div style="margin-bottom:1rem;">
+            <label style="font-size:0.8rem; color:var(--text-dim); display:block; margin-bottom:0.4rem;">Privacy Level</label>
+            <select style="width:100%; padding:0.6rem; background:var(--dark-3); border:1px solid var(--dark-4); border-radius:6px; color:var(--text); font-family:inherit;">
+                <option>Public</option>
+                <option>Friends Only</option>
+                <option>Self Only (Draft)</option>
+            </select>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:1.5rem;">
+            <input type="checkbox" id="allow-comment" checked>
+            <label for="allow-comment" style="font-size:0.82rem; color:var(--text-dim);">Allow Comments</label>
+        </div>
+        <div style="display:flex; gap:0.8rem;">
+            <button class="btn btn-gold" style="flex:1;" onclick="document.getElementById('create-modal').style.display='none'">Post to TikTok</button>
+            <button class="btn btn-outline" onclick="document.getElementById('create-modal').style.display='none'">Cancel</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

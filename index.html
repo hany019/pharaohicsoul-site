@@ -3,268 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PharaohicSoul — Handmade Egyptian Copper & Decor</title>
+    <title>PharaohicSoul — Social Commerce Platform for Artisan Sellers</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #C9A84C;
-            --gold-light: #E8D5A3;
-            --copper: #B87333;
-            --dark: #1A1510;
-            --dark-warm: #2A2118;
-            --cream: #F5EFE4;
-            --text: #E8E0D4;
-            --text-muted: #A89B8C;
+            --gold: #D4A853;
+            --gold-dim: #A8863F;
+            --copper: #C17F4E;
+            --dark-1: #0D0B09;
+            --dark-2: #161311;
+            --dark-3: #1E1A17;
+            --dark-4: #2A2520;
+            --cream: #F2E8D5;
+            --text: #E5DDD0;
+            --text-dim: #9B9183;
+            --accent: #E8C06A;
+            --success: #5DB87C;
+            --radius: 8px;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-1); color: var(--text); }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--dark);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Nav */
+        /* NAV */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(26,21,16,0.95), transparent);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1rem 2.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(13,11,9,0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212,168,83,0.08);
         }
-        nav .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--gold);
-            letter-spacing: 2px;
+        .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+        .nav-brand img { width: 32px; height: 32px; border-radius: 50%; }
+        .nav-brand span { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--gold); }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-cta {
+            background: var(--gold); color: var(--dark-1); padding: 0.55rem 1.3rem;
+            border-radius: var(--radius); font-weight: 600; font-size: 0.82rem;
+            text-decoration: none; transition: all 0.2s;
         }
-        nav .links { display: flex; gap: 1.5rem; }
-        nav .links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-        nav .links a:hover { color: var(--gold); }
+        .nav-cta:hover { background: var(--accent); }
 
-        /* Hero */
+        /* HERO */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            background: radial-gradient(ellipse at 50% 40%, rgba(184,115,51,0.08) 0%, transparent 60%),
-                        radial-gradient(ellipse at 50% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 8rem 2rem 4rem;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(212,168,83,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(193,127,78,0.04) 0%, transparent 50%);
         }
-
-        .hero-icon {
-            width: 150px;
-            height: auto;
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.4rem 1rem; border-radius: 50px;
+            background: rgba(212,168,83,0.1); border: 1px solid rgba(212,168,83,0.15);
+            font-size: 0.75rem; color: var(--gold); font-weight: 500;
             margin-bottom: 2rem;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 30px rgba(201, 168, 76, 0.2);
         }
-
+        .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
         .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 700;
-            color: var(--gold);
-            letter-spacing: 4px;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
+            color: var(--cream); line-height: 1.15;
+            max-width: 700px; margin-bottom: 1.2rem;
         }
-        .hero .subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            color: var(--copper);
-            font-weight: 400;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-        }
+        .hero h1 em { font-style: normal; color: var(--gold); }
         .hero p {
-            max-width: 550px;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
+            max-width: 520px; font-size: 1.05rem; font-weight: 300;
+            color: var(--text-dim); line-height: 1.7; margin-bottom: 2.5rem;
         }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .btn-primary {
+            background: var(--gold); color: var(--dark-1); padding: 0.8rem 2rem;
+            border-radius: var(--radius); font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+        .btn-secondary {
+            border: 1px solid var(--dark-4); color: var(--text-dim); padding: 0.8rem 2rem;
+            border-radius: var(--radius); font-weight: 500; font-size: 0.9rem;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .btn-secondary:hover { border-color: var(--gold-dim); color: var(--gold); }
 
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-            margin: 1.5rem auto;
+        /* STATS */
+        .stats {
+            display: flex; justify-content: center; gap: 4rem; padding: 3rem 2rem;
+            border-top: 1px solid rgba(212,168,83,0.06);
+            border-bottom: 1px solid rgba(212,168,83,0.06);
         }
+        .stat { text-align: center; }
+        .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--gold); }
+        .stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.3rem; }
 
-        /* CTA */
-        .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-        .cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2rem;
-            text-decoration: none;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+        /* SECTION STYLES */
+        section { padding: 5rem 2rem; }
+        .section-label {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--gold-dim); font-weight: 600; margin-bottom: 0.8rem;
         }
-        .cta-primary {
-            background: var(--gold);
-            color: var(--dark);
+        .section-title {
+            font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem);
+            color: var(--cream); margin-bottom: 1rem;
         }
-        .cta-primary:hover { background: var(--gold-light); }
-        .cta-secondary {
-            border: 1px solid var(--copper);
-            color: var(--copper);
-            background: transparent;
+        .section-desc {
+            font-size: 0.95rem; color: var(--text-dim); max-width: 550px;
+            line-height: 1.7; font-weight: 300;
         }
-        .cta-secondary:hover { background: rgba(184,115,51,0.1); }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        /* Features */
-        .features {
-            padding: 5rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
+        /* HOW IT WORKS */
+        .how-it-works { background: var(--dark-2); }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .step {
+            background: var(--dark-3); border: 1px solid rgba(212,168,83,0.06);
+            border-radius: 12px; padding: 2rem;
+            transition: border-color 0.3s;
         }
-        .feature {
+        .step:hover { border-color: rgba(212,168,83,0.2); }
+        .step-num {
+            font-family: 'DM Serif Display', serif; font-size: 2rem;
+            color: rgba(212,168,83,0.2); margin-bottom: 1rem;
+        }
+        .step h3 { font-size: 1rem; color: var(--cream); margin-bottom: 0.6rem; font-weight: 600; }
+        .step p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; font-weight: 300; }
+
+        /* FEATURES */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .feature-card {
+            background: var(--dark-2); border: 1px solid rgba(212,168,83,0.06);
+            border-radius: 12px; padding: 2rem;
+            transition: all 0.3s;
+        }
+        .feature-card:hover { border-color: rgba(212,168,83,0.15); transform: translateY(-2px); }
+        .feature-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: rgba(212,168,83,0.08); display: flex; align-items: center;
+            justify-content: center; margin-bottom: 1.2rem; font-size: 1.2rem;
+        }
+        .feature-card h3 { font-size: 1rem; color: var(--cream); margin-bottom: 0.5rem; font-weight: 600; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; font-weight: 300; }
+
+        /* PLATFORMS */
+        .platforms { background: var(--dark-2); text-align: center; }
+        .platform-logos { display: flex; justify-content: center; gap: 3rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .platform-logo {
+            display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+            opacity: 0.5; transition: opacity 0.3s;
+        }
+        .platform-logo:hover { opacity: 1; }
+        .platform-logo .icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            background: var(--dark-3); border: 1px solid rgba(212,168,83,0.08);
+            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+        }
+        .platform-logo span { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* CTA SECTION */
+        .cta-section {
             text-align: center;
-            padding: 2rem 1.5rem;
-            border: 1px solid rgba(201,168,76,0.1);
-            background: rgba(42,33,24,0.5);
+            background: linear-gradient(to bottom, var(--dark-1), var(--dark-2));
         }
-        .feature h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            color: var(--gold);
-            margin-bottom: 0.75rem;
-        }
-        .feature p {
-            font-weight: 300;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
+        .cta-box {
+            max-width: 600px; margin: 0 auto;
+            background: var(--dark-3); border: 1px solid rgba(212,168,83,0.1);
+            border-radius: 16px; padding: 3rem 2.5rem;
         }
 
-        /* Footer */
+        /* FOOTER */
         footer {
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(201,168,76,0.1);
+            padding: 3rem 2rem; text-align: center;
+            border-top: 1px solid rgba(212,168,83,0.06);
         }
-        footer .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        footer .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-        footer .footer-links a:hover { color: var(--gold); }
-        footer .copy {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            opacity: 0.6;
-        }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-copy { font-size: 0.72rem; color: rgba(155,145,131,0.5); }
 
-        /* Animations */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ANIMATIONS */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+        .hero > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+        .hero > *:nth-child(1) { animation-delay: 0s; }
+        .hero > *:nth-child(2) { animation-delay: 0.1s; }
+        .hero > *:nth-child(3) { animation-delay: 0.2s; }
+        .hero > *:nth-child(4) { animation-delay: 0.3s; }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.2rem; }
+            .nav-links { gap: 1rem; }
+            .stats { gap: 2rem; flex-wrap: wrap; }
+            .hero { padding: 7rem 1.5rem 3rem; }
         }
-        .hero > * {
-            animation: fadeUp 0.8s ease forwards;
-            opacity: 0;
-        }
-        .hero > *:nth-child(1) { animation-delay: 0.1s; }
-        .hero > *:nth-child(2) { animation-delay: 0.2s; }
-        .hero > *:nth-child(3) { animation-delay: 0.3s; }
-        .hero > *:nth-child(4) { animation-delay: 0.4s; }
-        .hero > *:nth-child(5) { animation-delay: 0.5s; }
-        .hero > *:nth-child(6) { animation-delay: 0.6s; }
-        .hero > *:nth-child(7) { animation-delay: 0.7s; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">PHARAOHICSOUL</div>
-    <div class="links">
-        <a href="https://pharaonicsoul.etsy.com" target="_blank">Shop</a>
+    <a href="index.html" class="nav-brand">
+        <img src="logo.jpg" alt="PS">
+        <span>PharaohicSoul</span>
+    </a>
+    <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="dashboard.html">Dashboard</a>
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
+        <a href="dashboard.html" class="nav-cta">Get Started</a>
     </div>
 </nav>
 
 <section class="hero">
-    <img class="hero-icon" src="logo.jpg" alt="PharaohicSoul Logo">
-
-    <h1>PharaohicSoul</h1>
-    <div class="subtitle">Handmade Egyptian Artistry</div>
-    <div class="divider"></div>
-    <p>Authentic handcrafted copper coffee sets, Egyptian-themed decor, and artisan pieces — made with traditional techniques passed down through generations. From Cairo to your home.</p>
-
-    <div class="cta-group">
-        <a href="https://pharaonicsoul.etsy.com" target="_blank" class="cta cta-primary">Visit Our Shop</a>
-        <a href="https://www.tiktok.com/@pharaohicsoul" target="_blank" class="cta cta-secondary">Follow on TikTok</a>
+    <div class="hero-badge"><div class="dot"></div> Now supporting TikTok Content Posting API</div>
+    <h1>Sell your handmade products with <em>social video</em></h1>
+    <p>PharaohicSoul helps artisan sellers create, manage, and publish product showcase videos directly to TikTok — driving traffic and sales from social media to your shop.</p>
+    <div class="hero-actions">
+        <a href="dashboard.html" class="btn-primary">Start Posting &rarr;</a>
+        <a href="#how-it-works" class="btn-secondary">See How It Works</a>
     </div>
 </section>
 
-<section class="features">
-    <div class="feature">
-        <h3>Handmade Copper</h3>
-        <p>Each copper coffee set is hand-hammered by skilled Egyptian artisans using centuries-old techniques.</p>
+<div class="stats">
+    <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Products Listed</div>
     </div>
-    <div class="feature">
-        <h3>Egyptian Heritage</h3>
-        <p>Every piece carries the soul of ancient Egypt — from pharaonic motifs to traditional patterns.</p>
+    <div class="stat">
+        <div class="stat-num">1B+</div>
+        <div class="stat-label">TikTok Daily Views</div>
     </div>
-    <div class="feature">
-        <h3>Worldwide Shipping</h3>
-        <p>We ship our handcrafted pieces from Egypt to customers around the globe via our Etsy shop.</p>
+    <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Platforms Supported</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Auto-Publishing</div>
+    </div>
+</div>
+
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="section-label">How It Works</div>
+        <div class="section-title">Three steps to social selling</div>
+        <div class="section-desc">Connect your shop, create content, and publish to TikTok — all from one dashboard.</div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">01</div>
+                <h3>Connect Your TikTok</h3>
+                <p>Sign in with your TikTok account using our secure Login Kit integration. Authorize the app to post on your behalf with full control over permissions.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <h3>Create Product Videos</h3>
+                <p>Use our content tools to generate engaging product showcase videos. Add captions, hashtags, and choose your posting schedule — or let AI suggest the best times.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <h3>Publish & Sell</h3>
+                <p>Review and approve content, then publish directly to TikTok via the Content Posting API. Drive viewers to your Etsy, Amazon, or standalone shop.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <div class="container">
+        <div class="section-label">Features</div>
+        <div class="section-title">Everything sellers need</div>
+        <div class="section-desc">Built specifically for handmade product sellers who want to reach customers through social video content.</div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#9654;</div>
+                <h3>TikTok Direct Posting</h3>
+                <p>Publish product videos directly to TikTok using the Content Posting API. Upload as drafts or post directly — you're always in control.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9998;</div>
+                <h3>AI Caption Generator</h3>
+                <p>Automatically generate engaging captions, hashtags, and descriptions in multiple languages to reach a global audience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128202;</div>
+                <h3>Sales Analytics</h3>
+                <p>Track which videos drive the most traffic and sales. See performance metrics across TikTok, Etsy, and Amazon from one dashboard.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128197;</div>
+                <h3>Content Calendar</h3>
+                <p>Plan and schedule your product videos in advance. Our AI suggests optimal posting times based on your audience's activity.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#127760;</div>
+                <h3>Multi-Language Support</h3>
+                <p>Create content in English, Spanish, Arabic, and more. Reach buyers worldwide with localized captions and descriptions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128274;</div>
+                <h3>Secure OAuth Login</h3>
+                <p>Connect your TikTok account securely via Login Kit. We never store your password — only authorized tokens with your chosen permissions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="platforms" id="platforms">
+    <div class="container">
+        <div class="section-label">Integrations</div>
+        <div class="section-title">Connect your selling platforms</div>
+        <div class="section-desc" style="margin: 0 auto;">Manage content for all your sales channels from one place.</div>
+        <div class="platform-logos">
+            <div class="platform-logo" style="opacity:1;">
+                <div class="icon">&#127916;</div>
+                <span>TikTok</span>
+            </div>
+            <div class="platform-logo">
+                <div class="icon">&#128247;</div>
+                <span>Instagram</span>
+            </div>
+            <div class="platform-logo">
+                <div class="icon">&#128204;</div>
+                <span>Pinterest</span>
+            </div>
+            <div class="platform-logo" style="opacity:1;">
+                <div class="icon">&#127978;</div>
+                <span>Etsy</span>
+            </div>
+            <div class="platform-logo">
+                <div class="icon">&#128230;</div>
+                <span>Amazon</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-box">
+        <div class="section-label">Get Started</div>
+        <div class="section-title">Ready to grow your sales?</div>
+        <p style="font-size:0.9rem; color:var(--text-dim); line-height:1.7; margin: 1rem 0 2rem;">Join artisan sellers using PharaohicSoul to turn product videos into customers. Connect your TikTok and start posting today.</p>
+        <a href="dashboard.html" class="btn-primary">Connect Your TikTok &rarr;</a>
     </div>
 </section>
 
 <footer>
     <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="#features">Features</a>
+        <a href="dashboard.html">Dashboard</a>
         <a href="https://pharaonicsoul.etsy.com" target="_blank">Etsy Shop</a>
         <a href="terms.html">Terms of Service</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="mailto:pharaohicsoul@gmail.com">Contact</a>
     </div>
-    <p class="copy">&copy; 2025 PharaohicSoul. All rights reserved. Sevilla, Spain.</p>
+    <p class="footer-copy">&copy; 2026 PharaohicSoul. All rights reserved.</p>
 </footer>
 
 </body>
